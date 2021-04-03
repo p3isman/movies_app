@@ -30,10 +30,11 @@ class HomePage extends StatelessWidget {
 
   Widget _cardSwiper() {
     return FutureBuilder(
+      // Movie list
       future: moviesProvider.getInTheatres(),
       builder: (context, snapshot) {
         if (snapshot.hasData)
-          return CardSwiper(movies: snapshot.data);
+          return CardSwiper(movieList: snapshot.data);
         else {
           return Container(
             height: 300.0,

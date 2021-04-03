@@ -1,11 +1,10 @@
-// This model let's us create an object from a JSON, by extracting all its keys and converting them into variables
-
 class Movies {
   List<Movie> items = [];
   Movies();
+
+  // Generate a movie from each item in the JSON and add it to the list
   Movies.fromJson(List<dynamic> jsonList) {
     if (jsonList == null) return;
-    // Get each map from the array of maps and generate the movie list
     for (var item in jsonList) {
       final movie = new Movie.fromJson(item);
       items.add(movie);
@@ -13,6 +12,7 @@ class Movies {
   }
 }
 
+// This class let's us create a movie object from a JSON, by extracting all its keys and converting them into variables
 class Movie {
   bool _adult;
   String _backdropPath;
@@ -78,7 +78,7 @@ class Movie {
   Movie.fromJson(dynamic json) {
     _adult = json["adult"];
     _backdropPath = json["backdrop_path"];
-    _genreIds = json["genre_ids"] != null ? json["genre_ids"].cast<int>() : [];
+    _genreIds = json["genre_ids"].cast<int>();
     _id = json["id"];
     _originalLanguage = json["original_language"];
     _originalTitle = json["original_title"];
@@ -88,7 +88,7 @@ class Movie {
     _releaseDate = json["release_date"];
     _title = json["title"];
     _video = json["video"];
-    _voteAverage = json["vote_average"];
+    _voteAverage = json["vote_average"] / 1;
     _voteCount = json["vote_count"];
   }
 
