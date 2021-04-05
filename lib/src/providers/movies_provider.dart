@@ -10,12 +10,7 @@ class MoviesProvider {
   String _language = 'es-ES';
 
   // Get movie list from HTTP request
-  Future<List<Movie>> getInTheatres() async {
-    final url = Uri.https(_url, '3/movie/now_playing', {
-      'api_key': _apiKey,
-      'language': _language,
-    });
-
+  Future<List<Movie>> processUrl(Uri url) async {
     // HTTP request
     final response = await http.get(url);
 
@@ -27,5 +22,24 @@ class MoviesProvider {
 
     // Movie list
     return movies.items;
+  }
+
+
+  Future<List<Movie>> getInTheatres() async {
+    final url = Uri.https(_url, '3/movie/now_playing', {
+      'api_key': _apiKey,
+      'language': _language,
+    });
+
+    return await processUrl(url);
+  }
+
+  Future<List<Movie>> getPopular() async {
+    final url = Uri.https(_url, '3/movie/popular', {
+      'api_key': _apiKey,
+      'language': _language,
+    });
+
+    return await processUrl(url);
   }
 }

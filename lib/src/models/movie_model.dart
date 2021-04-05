@@ -112,7 +112,7 @@ class Movie {
   }
 
   // Get poster URL
-  getPoster() {
+  String getPoster() {
     if (posterPath == null)
       return 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/No_image_available_500_x_500.svg/1024px-No_image_available_500_x_500.svg.png';
     return 'https://image.tmdb.org/t/p/w500/$posterPath';
