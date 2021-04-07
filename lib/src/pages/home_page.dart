@@ -9,6 +9,9 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    moviesProvider.getPopular();
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Películas en cines'),
@@ -54,16 +57,21 @@ class HomePage extends StatelessWidget {
     return Container(
       width: double.infinity,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Populares', style: Theme.of(context).textTheme.subtitle1),
-          FutureBuilder(
-              future: moviesProvider.getPopular(),
+          Container(
+              padding: EdgeInsets.only(left: 15.0),
+              child: Text('Populares', style: Theme.of(context).textTheme.subtitle1)),
+          SizedBox(height: 15.0),
+          // Build movie PageView from the moviesProvider's stream
+          StreamBuilder(
+              stream: moviesProvider.popularStream,
               builder: (context, snapshot) {
                 if (snapshot.hasData)
-                  return MoviesHorizontal(movies: snapshot.data);
+                  return MoviesHorizontal(movies: snapshot.data, nextPage: moviesProvider.getPopular);
                 else
-                  return CircularProgressIndicator();
-              })
+                  return Center(child: CircularProgressIndicator());
+              }),
         ],
       ),
     );
