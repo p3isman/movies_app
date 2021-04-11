@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:movies/src/models/movie_model.dart';
+import 'package:movies/src/models/cast_model.dart';
 import 'package:http/http.dart' as http;
 
 // Class to get the movie list
@@ -11,6 +12,7 @@ class MoviesProvider {
   String _language = 'es-ES';
 
   int _pageNumber = 0;
+  bool _isLoading = false;
 
   List<Movie> _popularMovies = [];
   // New stream controller with broadcast, to allow multiple listeners
@@ -22,9 +24,9 @@ class MoviesProvider {
   }
 
   // Getters for sink and stream
-  Function(List<Movie>) get popularAddToSink => _popularStreamController.sink.add;
+  Function(List<Movie>) get popularAddToSink =>
+      _popularStreamController.sink.add;
   Stream<List<Movie>> get popularStream => _popularStreamController.stream;
-
 
   // Get movie list from HTTP request
   Future<List<Movie>> processUrl(Uri url) async {
@@ -52,6 +54,10 @@ class MoviesProvider {
 
   // Called each time we want to obtain new popular movies
   Future<List<Movie>> getPopular() async {
+    // Avoid multiple simultaneous calls
+    if (_isLoading) return [];
+
+    _isLoading = true;
 
     _pageNumber++;
 
@@ -69,6 +75,23 @@ class MoviesProvider {
     // Add list to sink
     popularAddToSink(_popularMovies);
 
+    _isLoading = false;
+
     return resp;
+  }
+
+  Future<List<Actor>> getCast(String id) async {
+    final url = Uri.https(_url, '3/movie/$id/credits', {
+      'api_key': _apiKey,
+      'language': _language,
+    });
+
+    final response = await http.get(url);
+
+    final decodedData = json.decode(response.body);
+
+    final cast = new Cast.fromJson(decodedData);
+
+    return cast.items;
   }
 }
