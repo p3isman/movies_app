@@ -14,6 +14,8 @@ class Movies {
 
 // This class let's us create a movie object from a JSON, by extracting all its keys and converting them into variables
 class Movie {
+  String uniqueId;
+
   bool _adult;
   String _backdropPath;
   List<int> _genreIds;

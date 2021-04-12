@@ -37,18 +37,25 @@ class MoviesHorizontal extends StatelessWidget {
 
   // Individual poster
   Widget _card(BuildContext context, Movie movie) {
+
+    movie.uniqueId = UniqueKey().toString();
+
     final card = Container(
       child: Column(
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(10.0),
-            clipBehavior: Clip.hardEdge,
-            child: FadeInImage(
-              fadeInDuration: Duration(milliseconds: 300),
-              image: NetworkImage(movie.getPoster()),
-              placeholder: AssetImage('assets/img/no-image.jpg'),
-              fit: BoxFit.cover,
-              height: MediaQuery.of(context).size.height * 0.15,
+          Hero(
+            tag: movie.uniqueId,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10.0),
+              clipBehavior: Clip.hardEdge,
+              child: FadeInImage(
+                fadeInDuration: Duration(milliseconds: 300),
+                image: NetworkImage(movie.getPoster()),
+                placeholder: AssetImage('assets/img/no-image.jpg'),
+                fit: BoxFit.cover,
+                height: MediaQuery.of(context).size.height * 0.15,
+                width: MediaQuery.of(context).size.width * 0.20,
+              ),
             ),
           ),
           SizedBox(height: 5.0),
@@ -65,9 +72,7 @@ class MoviesHorizontal extends StatelessWidget {
     // Widget that captures gestures
     return GestureDetector(
       child: card,
-      onTap: () {
-        Navigator.pushNamed(context, 'details', arguments: movie);
-      },
+      onTap: () => Navigator.pushNamed(context, 'details', arguments: movie),
     );
   }
 

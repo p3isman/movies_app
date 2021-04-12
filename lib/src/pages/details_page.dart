@@ -57,11 +57,14 @@ class DetailsPage extends StatelessWidget {
       child: Row(
         children: [
           // Poster image
-          ClipRRect(
-            borderRadius: BorderRadius.circular(10.0),
-            child: Image(
-              image: NetworkImage(movie.getPoster()),
-              height: 150.0,
+          Hero(
+            tag: movie.uniqueId,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10.0),
+              child: Image(
+                image: NetworkImage(movie.getPoster()),
+                height: 150.0,
+              ),
             ),
           ),
           SizedBox(width: 20.0),
