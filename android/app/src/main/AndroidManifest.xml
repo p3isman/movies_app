@@ -2,8 +2,8 @@
     package="com.example.movies">
    <application
         android:usesCleartextTraffic="true"
-        android:label="movies"
-        android:icon="@mipmap/ic_launcher">
+        android:label="Películas"
+        android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
