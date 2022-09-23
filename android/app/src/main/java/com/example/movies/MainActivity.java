@@ -1,4 +1,4 @@
-package com.example.movies;
+package com.magusstudio.cartelera;
 
 import io.flutter.embedding.android.FlutterActivity;
 
