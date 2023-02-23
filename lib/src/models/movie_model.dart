@@ -3,7 +3,7 @@ class Movies {
   Movies();
 
   // Generate a movie from each item in the JSON and add it to the list
-  Movies.fromJson(List<dynamic> jsonList) {
+  Movies.fromJson(List<dynamic>? jsonList) {
     if (jsonList == null) return;
     for (var item in jsonList) {
       final movie = new Movie.fromJson(item);
@@ -14,53 +14,53 @@ class Movies {
 
 // This class let's us create a movie object from a JSON, by extracting all its keys and converting them into variables
 class Movie {
-  String uniqueId;
+  late String uniqueId;
 
-  bool _adult;
-  String _backdropPath;
-  List<int> _genreIds;
-  int _id;
-  String _originalLanguage;
-  String _originalTitle;
-  String _overview;
-  double _popularity;
-  String _posterPath;
-  String _releaseDate;
-  String _title;
-  bool _video;
-  double _voteAverage;
-  int _voteCount;
+  bool? _adult;
+  String? _backdropPath;
+  List<int>? _genreIds;
+  int? _id;
+  String? _originalLanguage;
+  String? _originalTitle;
+  String? _overview;
+  double? _popularity;
+  String? _posterPath;
+  String? _releaseDate;
+  String? _title;
+  bool? _video;
+  double? _voteAverage;
+  int? _voteCount;
 
-  bool get adult => _adult;
-  String get backdropPath => _backdropPath;
-  List<int> get genreIds => _genreIds;
-  int get id => _id;
-  String get originalLanguage => _originalLanguage;
-  String get originalTitle => _originalTitle;
-  String get overview => _overview;
-  double get popularity => _popularity;
-  String get posterPath => _posterPath;
-  String get releaseDate => _releaseDate;
-  String get title => _title;
-  bool get video => _video;
-  double get voteAverage => _voteAverage;
-  int get voteCount => _voteCount;
+  bool? get adult => _adult;
+  String? get backdropPath => _backdropPath;
+  List<int>? get genreIds => _genreIds;
+  int? get id => _id;
+  String? get originalLanguage => _originalLanguage;
+  String? get originalTitle => _originalTitle;
+  String? get overview => _overview;
+  double? get popularity => _popularity;
+  String? get posterPath => _posterPath;
+  String? get releaseDate => _releaseDate;
+  String? get title => _title;
+  bool? get video => _video;
+  double? get voteAverage => _voteAverage;
+  int? get voteCount => _voteCount;
 
   Movie(
-      {bool adult,
-      String backdropPath,
-      List<int> genreIds,
-      int id,
-      String originalLanguage,
-      String originalTitle,
-      String overview,
-      double popularity,
-      String posterPath,
-      String releaseDate,
-      String title,
-      bool video,
-      double voteAverage,
-      int voteCount}) {
+      {bool? adult,
+      String? backdropPath,
+      List<int>? genreIds,
+      int? id,
+      String? originalLanguage,
+      String? originalTitle,
+      String? overview,
+      double? popularity,
+      String? posterPath,
+      String? releaseDate,
+      String? title,
+      bool? video,
+      double? voteAverage,
+      int? voteCount}) {
     _adult = adult;
     _backdropPath = backdropPath;
     _genreIds = genreIds;

@@ -4,7 +4,7 @@ import 'package:movies/src/providers/movies_provider.dart';
 
 class DataSearch extends SearchDelegate {
   final moviesProvider = new MoviesProvider();
-  String selection;
+  String? selection;
 
   @override
   String searchFieldLabel = 'Buscar...';
@@ -35,7 +35,7 @@ class DataSearch extends SearchDelegate {
         future: moviesProvider.searchMovie(query),
         builder: (context, AsyncSnapshot<List<Movie>> snapshot) {
           if (snapshot.hasData) {
-            final movies = snapshot.data;
+            final movies = snapshot.data!;
 
             return ListView.builder(
               itemCount: movies.length,
@@ -51,7 +51,7 @@ class DataSearch extends SearchDelegate {
                       height: 50.0,
                     ),
                   ),
-                  title: Text(movies[i].title),
+                  title: Text(movies[i].title!),
                   onTap: () {
                     close(context, null);
                     Navigator.pushNamed(context, 'details',
@@ -76,7 +76,7 @@ class DataSearch extends SearchDelegate {
         future: moviesProvider.searchMovie(query),
         builder: (context, AsyncSnapshot<List<Movie>> snapshot) {
           if (snapshot.hasData) {
-            final movies = snapshot.data;
+            final movies = snapshot.data!;
 
             return ListView.builder(
               itemCount: movies.length,
@@ -92,7 +92,7 @@ class DataSearch extends SearchDelegate {
                       height: 50.0,
                     ),
                   ),
-                  title: Text(movies[i].title),
+                  title: Text(movies[i].title!),
                   onTap: () {
                     Navigator.pushNamed(context, 'details',
                         arguments: movies[i]);

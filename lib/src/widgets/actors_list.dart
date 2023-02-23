@@ -2,22 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:movies/src/models/cast_model.dart';
 
 class ActorsList extends StatelessWidget {
-  final List<Actor> cast;
+  final List<Actor>? cast;
 
-  ActorsList({@required this.cast});
+  ActorsList({required this.cast});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 250.0,
       child: PageView.builder(
-        itemCount: cast.length,
+        itemCount: cast!.length,
         controller: PageController(
           viewportFraction: 0.3,
           initialPage: 1,
         ),
         itemBuilder: (context, i) {
-          return _ActorCard(actor: cast[i]);
+          return _ActorCard(actor: cast![i]);
         },
       ),
     );
@@ -26,8 +26,8 @@ class ActorsList extends StatelessWidget {
 
 class _ActorCard extends StatelessWidget {
   const _ActorCard({
-    Key key,
-    @required this.actor,
+    Key? key,
+    required this.actor,
   }) : super(key: key);
 
   final Actor actor;
@@ -48,7 +48,7 @@ class _ActorCard extends StatelessWidget {
             ),
           ),
           SizedBox(height: 5.0),
-          Text(actor.name),
+          Text(actor.name!),
         ],
       ),
     );

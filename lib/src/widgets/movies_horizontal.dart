@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:movies/src/models/movie_model.dart';
 
 class MoviesHorizontal extends StatelessWidget {
-  final List<Movie> movies;
+  final List<Movie>? movies;
   final Function nextPage;
-  MoviesHorizontal({@required this.movies, @required this.nextPage});
+  MoviesHorizontal({required this.movies, required this.nextPage});
 
   final _pageController = new PageController(
     initialPage: 1,
@@ -29,18 +29,18 @@ class MoviesHorizontal extends StatelessWidget {
           // Allow free scrolling
           pageSnapping: false,
           controller: _pageController,
-          itemCount: movies.length,
+          itemCount: movies!.length,
           itemBuilder: (context, index) =>
-              _Card(context: context, movie: movies[index]),
+              _Card(context: context, movie: movies![index]),
         ));
   }
 }
 
 class _Card extends StatelessWidget {
   const _Card({
-    Key key,
-    @required this.context,
-    @required this.movie,
+    Key? key,
+    required this.context,
+    required this.movie,
   }) : super(key: key);
 
   final BuildContext context;
@@ -71,7 +71,7 @@ class _Card extends StatelessWidget {
           SizedBox(height: 5.0),
           Center(
               child: Text(
-            movie.title,
+            movie.title!,
             overflow: TextOverflow.ellipsis,
             style: Theme.of(context).textTheme.bodySmall,
           )),
