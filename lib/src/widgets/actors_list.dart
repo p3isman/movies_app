@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:movies/src/models/cast_model.dart';
 
 class ActorsList extends StatelessWidget {
@@ -18,13 +17,23 @@ class ActorsList extends StatelessWidget {
           initialPage: 1,
         ),
         itemBuilder: (context, i) {
-          return _actorCard(cast[i]);
+          return _ActorCard(actor: cast[i]);
         },
       ),
     );
   }
+}
 
-  Widget _actorCard(Actor actor) {
+class _ActorCard extends StatelessWidget {
+  const _ActorCard({
+    Key key,
+    @required this.actor,
+  }) : super(key: key);
+
+  final Actor actor;
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
       child: Column(
         children: [
@@ -34,7 +43,7 @@ class ActorsList extends StatelessWidget {
               height: 150.0,
               width: 100.0,
               placeholder: AssetImage('assets/img/no-image.jpg'),
-              image: NetworkImage(actor.getPhoto()),
+              image: NetworkImage(actor.getImageUrl()),
               fit: BoxFit.cover,
             ),
           ),

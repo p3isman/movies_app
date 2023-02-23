@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:movies/src/models/movie_model.dart';
 import 'package:movies/src/providers/movies_provider.dart';
 import 'package:movies/src/widgets/actors_list.dart';
@@ -13,21 +12,31 @@ class DetailsPage extends StatelessWidget {
       // Same as ListView but allows different types of children
       body: CustomScrollView(
         slivers: [
-          _appBar(movie),
+          _AppBar(movie: movie),
           SliverList(
             delegate: SliverChildListDelegate([
               SizedBox(height: 10.0),
-              _moviePoster(context, movie),
-              _description(context, movie),
-              _cast(movie),
+              _MoviePoster(context: context, movie: movie),
+              _Description(context: context, movie: movie),
+              _Cast(movie: movie),
             ]),
           )
         ],
       ),
     );
   }
+}
 
-  Widget _appBar(Movie movie) {
+class _AppBar extends StatelessWidget {
+  const _AppBar({
+    Key key,
+    @required this.movie,
+  }) : super(key: key);
+
+  final Movie movie;
+
+  @override
+  Widget build(BuildContext context) {
     return SliverAppBar(
       elevation: 50.0,
       expandedHeight: 200.0,
@@ -44,14 +53,26 @@ class DetailsPage extends StatelessWidget {
         ),
         background: FadeInImage(
           placeholder: AssetImage('assets/img/loading.gif'),
-          image: NetworkImage(movie.getBackdrop()),
+          image: NetworkImage(movie.getBackdropUrl()),
           fit: BoxFit.cover,
         ),
       ),
     );
   }
+}
 
-  Widget _moviePoster(BuildContext context, Movie movie) {
+class _MoviePoster extends StatelessWidget {
+  const _MoviePoster({
+    Key key,
+    @required this.context,
+    @required this.movie,
+  }) : super(key: key);
+
+  final BuildContext context;
+  final Movie movie;
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: 20.0),
       child: Row(
@@ -62,7 +83,7 @@ class DetailsPage extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10.0),
               child: Image(
-                image: NetworkImage(movie.getPoster()),
+                image: NetworkImage(movie.getPosterUrl()),
                 height: 150.0,
               ),
             ),
@@ -73,11 +94,11 @@ class DetailsPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(movie.title,
-                    style: Theme.of(context).textTheme.headline6,
+                    style: Theme.of(context).textTheme.titleLarge,
                     overflow: TextOverflow.ellipsis),
                 SizedBox(height: 5.0),
                 Text(movie.originalTitle,
-                    style: Theme.of(context).textTheme.subtitle1,
+                    style: Theme.of(context).textTheme.titleMedium,
                     overflow: TextOverflow.ellipsis),
                 SizedBox(height: 5.0),
                 Row(
@@ -94,18 +115,40 @@ class DetailsPage extends StatelessWidget {
       ),
     );
   }
+}
 
-  Widget _description(BuildContext context, Movie movie) {
+class _Description extends StatelessWidget {
+  const _Description({
+    Key key,
+    @required this.context,
+    @required this.movie,
+  }) : super(key: key);
+
+  final BuildContext context;
+  final Movie movie;
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
+      padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 20.0),
       child: Text(
         movie.overview,
         style: TextStyle(fontSize: 16.0),
       ),
     );
   }
+}
 
-  Widget _cast(Movie movie) {
+class _Cast extends StatelessWidget {
+  const _Cast({
+    Key key,
+    @required this.movie,
+  }) : super(key: key);
+
+  final Movie movie;
+
+  @override
+  Widget build(BuildContext context) {
     final moviesProvider = new MoviesProvider();
     final id = movie.id.toString();
 

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:movies/src/models/movie_model.dart';
 
 class MoviesHorizontal extends StatelessWidget {
@@ -31,13 +30,24 @@ class MoviesHorizontal extends StatelessWidget {
           pageSnapping: false,
           controller: _pageController,
           itemCount: movies.length,
-          itemBuilder: (context, index) => _card(context, movies[index]),
+          itemBuilder: (context, index) =>
+              _Card(context: context, movie: movies[index]),
         ));
   }
+}
 
-  // Individual poster
-  Widget _card(BuildContext context, Movie movie) {
+class _Card extends StatelessWidget {
+  const _Card({
+    Key key,
+    @required this.context,
+    @required this.movie,
+  }) : super(key: key);
 
+  final BuildContext context;
+  final Movie movie;
+
+  @override
+  Widget build(BuildContext context) {
     movie.uniqueId = UniqueKey().toString();
 
     final card = Container(
@@ -50,7 +60,7 @@ class MoviesHorizontal extends StatelessWidget {
               clipBehavior: Clip.hardEdge,
               child: FadeInImage(
                 fadeInDuration: Duration(milliseconds: 300),
-                image: NetworkImage(movie.getPoster()),
+                image: NetworkImage(movie.getPosterUrl()),
                 placeholder: AssetImage('assets/img/no-image.jpg'),
                 fit: BoxFit.cover,
                 height: MediaQuery.of(context).size.height * 0.15,
@@ -63,7 +73,7 @@ class MoviesHorizontal extends StatelessWidget {
               child: Text(
             movie.title,
             overflow: TextOverflow.ellipsis,
-            style: Theme.of(context).textTheme.caption,
+            style: Theme.of(context).textTheme.bodySmall,
           )),
         ],
       ),
@@ -75,34 +85,4 @@ class MoviesHorizontal extends StatelessWidget {
       onTap: () => Navigator.pushNamed(context, 'details', arguments: movie),
     );
   }
-
-  // List of posters
-  // List<Widget> _cards(BuildContext context) {
-  //   return movies.map((movie) {
-  //     return Container(
-  //       child: Column(
-  //         children: [
-  //           ClipRRect(
-  //             borderRadius: BorderRadius.circular(10.0),
-  //             clipBehavior: Clip.hardEdge,
-  //             child: FadeInImage(
-  //               fadeInDuration: Duration(milliseconds: 300),
-  //               image: NetworkImage(movie.getPoster()),
-  //               placeholder: AssetImage('assets/img/no-image.jpg'),
-  //               fit: BoxFit.cover,
-  //               height: MediaQuery.of(context).size.height * 0.15,
-  //             ),
-  //           ),
-  //           SizedBox(height: 5.0),
-  //           Center(
-  //               child: Text(
-  //             movie.title,
-  //             overflow: TextOverflow.ellipsis,
-  //             style: Theme.of(context).textTheme.caption,
-  //           )),
-  //         ],
-  //       ),
-  //     );
-  //   }).toList();
-  // }
 }
