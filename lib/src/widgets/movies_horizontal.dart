@@ -50,39 +50,36 @@ class _Card extends StatelessWidget {
   Widget build(BuildContext context) {
     movie.uniqueId = UniqueKey().toString();
 
-    final card = Container(
-      child: Column(
-        children: [
-          Hero(
-            tag: movie.uniqueId,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(10.0),
-              clipBehavior: Clip.hardEdge,
-              child: FadeInImage(
-                fadeInDuration: Duration(milliseconds: 300),
-                image: NetworkImage(movie.getPosterUrl()),
-                placeholder: AssetImage('assets/img/no-image.jpg'),
-                fit: BoxFit.cover,
-                height: MediaQuery.of(context).size.height * 0.15,
-                width: MediaQuery.of(context).size.width * 0.20,
+    return GestureDetector(
+      onTap: () => Navigator.pushNamed(context, 'details', arguments: movie),
+      child: Container(
+        child: Column(
+          children: [
+            Hero(
+              tag: movie.uniqueId,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10.0),
+                clipBehavior: Clip.hardEdge,
+                child: FadeInImage(
+                  fadeInDuration: Duration(milliseconds: 300),
+                  image: NetworkImage(movie.getPosterUrl()),
+                  placeholder: AssetImage('assets/img/no-image.jpg'),
+                  fit: BoxFit.cover,
+                  height: MediaQuery.of(context).size.height * 0.15,
+                  width: MediaQuery.of(context).size.width * 0.20,
+                ),
               ),
             ),
-          ),
-          SizedBox(height: 5.0),
-          Center(
-              child: Text(
-            movie.title!,
-            overflow: TextOverflow.ellipsis,
-            style: Theme.of(context).textTheme.bodySmall,
-          )),
-        ],
+            SizedBox(height: 5.0),
+            Center(
+                child: Text(
+              movie.title!,
+              overflow: TextOverflow.ellipsis,
+              style: Theme.of(context).textTheme.bodySmall,
+            )),
+          ],
+        ),
       ),
-    );
-
-    // Widget that captures gestures
-    return GestureDetector(
-      child: card,
-      onTap: () => Navigator.pushNamed(context, 'details', arguments: movie),
     );
   }
 }
