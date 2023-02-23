@@ -58,7 +58,7 @@ class Actor {
     order = json["order"];
   }
 
-  getPhoto() {
+  String getImageUrl() {
     return profilePath == null
         ? 'https://www.pmc-kollum.nl/wp-content/uploads/2017/05/no_avatar.jpg'
         : 'https://image.tmdb.org/t/p/w500/$profilePath';

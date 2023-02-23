@@ -1,11 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'package:movies/src/models/movie_model.dart';
 import 'package:movies/src/providers/movies_provider.dart';
 
 class DataSearch extends SearchDelegate {
-
   final moviesProvider = new MoviesProvider();
   String selection;
 
@@ -50,26 +47,25 @@ class DataSearch extends SearchDelegate {
                     tag: movies[i].uniqueId,
                     child: FadeInImage(
                       placeholder: AssetImage('assets/img/no-image.jpg'),
-                      image: NetworkImage(movies[i].getPoster()),
+                      image: NetworkImage(movies[i].getPosterUrl()),
                       height: 50.0,
                     ),
                   ),
                   title: Text(movies[i].title),
                   onTap: () {
                     close(context, null);
-                    Navigator.pushNamed(context, 'details', arguments: movies[i]);
+                    Navigator.pushNamed(context, 'details',
+                        arguments: movies[i]);
                   },
                 );
               },
             );
-          }
-          else {
+          } else {
             return Center(
               child: CircularProgressIndicator(),
             );
           }
-        }
-    );
+        });
   }
 
   @override
@@ -77,39 +73,38 @@ class DataSearch extends SearchDelegate {
     if (query.isEmpty) return Container();
 
     return FutureBuilder(
-      future: moviesProvider.searchMovie(query),
-      builder: (context, AsyncSnapshot<List<Movie>> snapshot) {
-        if (snapshot.hasData) {
-          final movies = snapshot.data;
+        future: moviesProvider.searchMovie(query),
+        builder: (context, AsyncSnapshot<List<Movie>> snapshot) {
+          if (snapshot.hasData) {
+            final movies = snapshot.data;
 
-          return ListView.builder(
-            itemCount: movies.length,
-            itemBuilder: (context, i) {
-              movies[i].uniqueId = UniqueKey().toString();
+            return ListView.builder(
+              itemCount: movies.length,
+              itemBuilder: (context, i) {
+                movies[i].uniqueId = UniqueKey().toString();
 
-              return ListTile(
-                leading: Hero(
-                  tag: movies[i].uniqueId,
-                  child: FadeInImage(
-                    placeholder: AssetImage('assets/img/no-image.jpg'),
-                    image: NetworkImage(movies[i].getPoster()),
-                    height: 50.0,
+                return ListTile(
+                  leading: Hero(
+                    tag: movies[i].uniqueId,
+                    child: FadeInImage(
+                      placeholder: AssetImage('assets/img/no-image.jpg'),
+                      image: NetworkImage(movies[i].getPosterUrl()),
+                      height: 50.0,
+                    ),
                   ),
-                ),
-                title: Text(movies[i].title),
-                onTap: () {
-                  Navigator.pushNamed(context, 'details', arguments: movies[i]);
-                },
-              );
-            },
-          );
-        }
-        else {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-      }
-    );
+                  title: Text(movies[i].title),
+                  onTap: () {
+                    Navigator.pushNamed(context, 'details',
+                        arguments: movies[i]);
+                  },
+                );
+              },
+            );
+          } else {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        });
   }
 }

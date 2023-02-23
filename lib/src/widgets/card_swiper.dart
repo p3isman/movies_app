@@ -1,6 +1,5 @@
+import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
-
-import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:movies/src/models/movie_model.dart';
 
 class CardSwiper extends StatelessWidget {
@@ -25,15 +24,17 @@ class CardSwiper extends StatelessWidget {
             tag: movieList[index].uniqueId,
             child: Card(
               elevation: 2.0,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0)),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20.0),
                 child: GestureDetector(
-                  onTap: () => Navigator.pushNamed(context, 'details', arguments: movieList[index]),
+                  onTap: () => Navigator.pushNamed(context, 'details',
+                      arguments: movieList[index]),
                   child: FadeInImage(
                     fit: BoxFit.cover,
                     placeholder: AssetImage('assets/img/no-image.jpg'),
-                    image: NetworkImage(movieList[index].getPoster()),
+                    image: NetworkImage(movieList[index].getPosterUrl()),
                   ),
                 ),
               ),
