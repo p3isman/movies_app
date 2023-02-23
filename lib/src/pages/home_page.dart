@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:movies/src/providers/movies_provider.dart';
-
+import 'package:movies/src/search/search_delegate.dart';
 import 'package:movies/src/widgets/card_swiper.dart';
 import 'package:movies/src/widgets/movies_horizontal.dart';
-import 'package:movies/src/search/search_delegate.dart';
 
 class HomePage extends StatelessWidget {
   final moviesProvider = new MoviesProvider();
@@ -64,7 +63,7 @@ class HomePage extends StatelessWidget {
           Container(
               padding: EdgeInsets.only(left: 15.0),
               child: Text('Populares',
-                  style: Theme.of(context).textTheme.subtitle1)),
+                  style: Theme.of(context).textTheme.titleMedium)),
           SizedBox(height: 15.0),
           // Build movie PageView from the moviesProvider's stream
           StreamBuilder(
