@@ -4,6 +4,8 @@ import 'package:movies/src/search/search_delegate.dart';
 import 'package:movies/src/widgets/card_swiper.dart';
 import 'package:movies/src/widgets/movies_horizontal.dart';
 
+import '../models/movie_model.dart';
+
 class HomePage extends StatelessWidget {
   final moviesProvider = new MoviesProvider();
 
@@ -41,7 +43,7 @@ class HomePage extends StatelessWidget {
       future: moviesProvider.getInTheatres(),
       builder: (context, snapshot) {
         if (snapshot.hasData)
-          return CardSwiper(movieList: snapshot.data);
+          return CardSwiper(movieList: snapshot.data as List<Movie>);
         else {
           return Container(
             height: 300.0,
@@ -71,7 +73,7 @@ class HomePage extends StatelessWidget {
               builder: (context, snapshot) {
                 if (snapshot.hasData)
                   return MoviesHorizontal(
-                      movies: snapshot.data,
+                      movies: snapshot.data as List<Movie>,
                       nextPage: moviesProvider.getPopular);
                 else
                   return Center(child: CircularProgressIndicator());

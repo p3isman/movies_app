@@ -3,6 +3,8 @@ import 'package:movies/src/models/movie_model.dart';
 import 'package:movies/src/providers/movies_provider.dart';
 import 'package:movies/src/widgets/actors_list.dart';
 
+import '../models/cast_model.dart';
+
 class DetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -156,7 +158,7 @@ class _Cast extends StatelessWidget {
       future: moviesProvider.getCast(id),
       builder: (context, snapshot) {
         if (snapshot.hasData)
-          return ActorsList(cast: snapshot.data);
+          return ActorsList(cast: snapshot.data as List<Actor>);
         else {
           return Center(
             child: CircularProgressIndicator(),

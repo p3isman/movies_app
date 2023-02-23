@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:movies/src/models/movie_model.dart';
-import 'package:movies/src/models/cast_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:movies/src/models/cast_model.dart';
+import 'package:movies/src/models/movie_model.dart';
 
 // Class to get the movie list
 class MoviesProvider {
@@ -20,7 +20,7 @@ class MoviesProvider {
 
   // Close all streams when not used
   void disposeStreams() {
-    _popularStreamController?.close();
+    _popularStreamController.close();
   }
 
   // Getters for sink and stream
@@ -99,7 +99,7 @@ class MoviesProvider {
     final url = Uri.https(_url, '3/search/movie', {
       'api_key': _apiKey,
       'language': _language,
-      'query' : query,
+      'query': query,
     });
 
     return await processUrl(url);
