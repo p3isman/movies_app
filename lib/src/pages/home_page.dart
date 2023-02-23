@@ -14,7 +14,7 @@ class HomePage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Películas en cines'),
+        title: Text('Cartelera'),
         actions: [
           IconButton(
             icon: Icon(Icons.search),
