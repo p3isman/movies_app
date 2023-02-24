@@ -29,15 +29,25 @@ class HomePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            _cardSwiper(),
-            _footer(context),
+            _CardSwiper(moviesProvider: moviesProvider),
+            _Footer(moviesProvider: moviesProvider),
           ],
         ),
       ),
     );
   }
+}
 
-  Widget _cardSwiper() {
+class _CardSwiper extends StatelessWidget {
+  const _CardSwiper({
+    Key? key,
+    required this.moviesProvider,
+  }) : super(key: key);
+
+  final MoviesProvider moviesProvider;
+
+  @override
+  Widget build(BuildContext context) {
     return FutureBuilder(
       // Movie list
       future: moviesProvider.getInTheatres(),
@@ -55,8 +65,18 @@ class HomePage extends StatelessWidget {
       },
     );
   }
+}
 
-  Widget _footer(BuildContext context) {
+class _Footer extends StatelessWidget {
+  const _Footer({
+    Key? key,
+    required this.moviesProvider,
+  }) : super(key: key);
+
+  final MoviesProvider moviesProvider;
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
       child: Column(
