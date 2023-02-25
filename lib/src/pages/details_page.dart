@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movies/src/models/movie_model.dart';
 import 'package:movies/src/providers/movies_provider.dart';
 import 'package:movies/src/widgets/actors_list.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 import '../models/cast_model.dart';
 
@@ -53,9 +54,9 @@ class _AppBar extends StatelessWidget {
             BoxShadow(blurRadius: 10.0, spreadRadius: 1.0),
           ]),
         ),
-        background: FadeInImage(
-          placeholder: AssetImage('assets/img/loading.gif'),
-          image: NetworkImage(movie!.getBackdropUrl()),
+        background: FadeInImage.memoryNetwork(
+          image: movie!.getBackdropUrl(),
+          placeholder: kTransparentImage,
           fit: BoxFit.cover,
         ),
       ),
